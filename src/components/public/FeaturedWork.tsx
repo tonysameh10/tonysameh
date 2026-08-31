@@ -2,21 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { dictionary } from "@/lib/dictionary";
-import { seedProjects } from "@/lib/seed";
+import type { Project } from "@/lib/data";
+import { categoryLabels } from "@/lib/categories";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
-const limited = {
-  cover: dictionary.categories.cover,
-  booklet: dictionary.categories.booklet,
-  profile: dictionary.categories.profile,
-  book: dictionary.categories.book,
-} as const;
-
-export function FeaturedWork() {
-  const featured = seedProjects.filter((p) => p.featured && p.published);
-
+export function FeaturedWork({ projects }: { projects: Project[] }) {
   return (
     <Section className="bg-surface">
       <Container>
@@ -26,7 +17,7 @@ export function FeaturedWork() {
           subtitle="نماذج من شغل اتصمم على أساس إنه يصلح للمطبعة من أول مرة"
         />
         <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
-          {featured.map((project) => (
+          {projects.map((project) => (
             <StaggerItem key={project.id}>
               <Link
                 href={`/work/${project.slug}`}
@@ -45,7 +36,7 @@ export function FeaturedWork() {
                     <h3 className="text-white font-bold text-lg">{project.title_ar}</h3>
                     <div className="mt-1 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 origin-right transition-transform duration-400 w-12" />
                     <span className="text-accent-soft text-sm mt-1 block">
-                      {limited[project.category]}
+                      {categoryLabels[project.category]}
                     </span>
                   </div>
                 </div>

@@ -4,20 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import type { SeedProject } from "@/lib/seed";
+import type { Project } from "@/lib/data";
+import { categoryLabels } from "@/lib/categories";
 import { dictionary } from "@/lib/dictionary";
 import { waLink } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import { Lightbox } from "@/components/public/Lightbox";
 
-const categoryLabels = {
-  cover: dictionary.categories.cover,
-  booklet: dictionary.categories.booklet,
-  profile: dictionary.categories.profile,
-  book: dictionary.categories.book,
-} as const;
-
-export function ProjectDetail({ project }: { project: SeedProject }) {
+export function ProjectDetail({ project }: { project: Project }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const reduce = useReducedMotion();
 

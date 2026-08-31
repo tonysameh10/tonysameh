@@ -8,19 +8,31 @@ import { Process } from "@/components/public/Process";
 import { WhyMe } from "@/components/public/WhyMe";
 import { FAQ } from "@/components/public/FAQ";
 import { FinalCta } from "@/components/public/FinalCta";
+import {
+  getFeaturedProjects,
+  getServices,
+  getPackages,
+  getSettings,
+} from "@/lib/data";
 
-export default function HomePage() {
-  // TODO: Phase 5 - replace with Supabase queries
-  const isAvailable = true;
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const [featured, services, packages, settings] = await Promise.all([
+    getFeaturedProjects(),
+    getServices(),
+    getPackages(),
+    getSettings(),
+  ]);
 
   return (
     <>
-      <Hero isAvailable={isAvailable} />
+      <Hero isAvailable={settings.is_available} />
       <Stats />
       <Problem />
-      <Services />
-      <FeaturedWork />
-      <Packages />
+      <Services services={services} />
+      <FeaturedWork projects={featured} />
+      <Packages packages={packages} />
       <Process />
       <WhyMe />
       <FAQ />

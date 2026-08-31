@@ -5,29 +5,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { dictionary } from "@/lib/dictionary";
-import { seedProjects } from "@/lib/seed";
+import { categoryLabels as baseCategoryLabels, projectCategories } from "@/lib/categories";
+import type { Project } from "@/lib/data";
 import { Container } from "@/components/ui/container";
 
-const categories = ["all", "cover", "booklet", "profile", "book"] as const;
+const categories = ["all", ...projectCategories] as const;
 type Category = (typeof categories)[number];
 
 const categoryLabels: Record<Category, string> = {
   all: dictionary.categories.all,
-  cover: dictionary.categories.cover,
-  booklet: dictionary.categories.booklet,
-  profile: dictionary.categories.profile,
-  book: dictionary.categories.book,
+  ...baseCategoryLabels,
 };
 
-export function WorkGallery() {
+export function WorkGallery({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<Category>("all");
   const reduce = useReducedMotion();
 
-  const published = seedProjects.filter((p) => p.published);
   const filtered =
     active === "all"
-      ? published
-      : published.filter((p) => p.category === active);
+      ? projects
+      : projects.filter((p) => p.category === active);
 
   return (
     <Container>

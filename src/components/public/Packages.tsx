@@ -1,13 +1,13 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { seedPackages } from "@/lib/seed";
 import { formatPrice, waLink } from "@/lib/utils";
 import { dictionary } from "@/lib/dictionary";
+import type { Package } from "@/lib/data";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
-export function Packages() {
+export function Packages({ packages }: { packages: Package[] }) {
   return (
     <Section>
       <Container>
@@ -17,7 +17,7 @@ export function Packages() {
           subtitle="اختار الباقة اللي تناسب حجم شغلك"
         />
         <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7 items-stretch">
-          {seedPackages.map((pkg) => (
+          {packages.map((pkg) => (
             <StaggerItem
               key={pkg.id}
               className={

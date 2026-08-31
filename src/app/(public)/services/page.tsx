@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { Check, X } from "lucide-react";
-import { dictionary } from "@/lib/dictionary";
-import { seedServices, seedPackages } from "@/lib/seed";
+import { getServices, getPackages } from "@/lib/data";
 import { formatPrice, waLink } from "@/lib/utils";
+import { dictionary } from "@/lib/dictionary";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { FadeUp } from "@/components/motion/FadeUp";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "الخدمات والأسعار",
   description: "تفاصيل الخدمات والباقات والأسعار",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const [services, packages] = await Promise.all([getServices(), getPackages()]);
+
   return (
     <>
       <Section className="pt-24 md:pt-28 pb-0">
@@ -29,7 +33,7 @@ export default function ServicesPage() {
       <Section className="py-16 md:py-20">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
-            {seedServices.map((service, i) => (
+            {services.map((service, i) => (
               <FadeUp
                 key={service.id}
                 delay={i * 0.05}
@@ -42,7 +46,7 @@ export default function ServicesPage() {
                       {service.title_ar}
                     </h2>
                   </div>
-                  {service.price_from > 100 && (
+                  {service.price_from !== null && service.price_from > 100 && (
                     <span
                       className="whitespace-nowrap text-lg font-bold text-brand"
                       dir="ltr"
@@ -51,7 +55,9 @@ export default function ServicesPage() {
                     </span>
                   )}
                 </div>
-                <p className="mt-3 text-body">{service.description}</p>
+                {service.description && (
+                  <p className="mt-3 text-body">{service.description}</p>
+                )}
                 <ul className="mt-5 grid grid-cols-1 gap-2.5">
                   {service.features.map((f) => (
                     <li key={f} className="flex items-center gap-2.5">
@@ -144,7 +150,7 @@ export default function ServicesPage() {
             subtitle="مش عارف تبدأ منين؟ الباقات دي بتغطي أغلب الاحتياجات"
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7 max-w-5xl mx-auto">
-            {seedPackages.map((pkg) => (
+            {packages.map((pkg) => (
               <FadeUp
                 key={pkg.id}
                 className={

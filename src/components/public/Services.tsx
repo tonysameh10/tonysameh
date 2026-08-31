@@ -1,22 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { seedServices } from "@/lib/seed";
 import { formatPrice } from "@/lib/utils";
+import type { Service } from "@/lib/data";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
-export function Services() {
+export function Services({ services }: { services: Service[] }) {
   return (
     <Section>
       <Container>
         <SectionHeading
           eyebrow="الخدمات"
           title="إيه اللي بعمله؟"
-          subtitle="خمسة محاور تاخد من الفوضى لملف جاهز للمطبعة"
+          subtitle="أربع خدمات أساسية — كل واحدة بتاخد من الفوضى لملف جاهز للمطبعة"
         />
         <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
-          {seedServices.map((service) => (
+          {services.map((service) => (
             <StaggerItem
               key={service.id}
               className="group rounded-lg bg-white border border-line p-7 shadow-sm hover:shadow-md transition-all hover:-translate-y-1"
@@ -28,13 +28,15 @@ export function Services() {
                     {service.title_ar}
                   </h3>
                 </div>
-                {service.price_from > 100 && (
+                {service.price_from !== null && service.price_from > 100 && (
                   <span className="whitespace-nowrap text-sm font-bold text-brand">
                     من {formatPrice(service.price_from)} ج.م
                   </span>
                 )}
               </div>
-              <p className="mt-3 text-body">{service.description}</p>
+              {service.description && (
+                <p className="mt-3 text-body">{service.description}</p>
+              )}
               <ul className="mt-4 flex flex-wrap gap-2">
                 {service.features.map((f) => (
                   <li

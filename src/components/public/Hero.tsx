@@ -78,6 +78,15 @@ function TiltCover() {
         <div className="absolute -bottom-4 right-6 rounded-full bg-white/90 backdrop-blur px-4 py-2 shadow-sm text-sm font-semibold text-ink">
           {dictionary.brand.tagline}
         </div>
+
+        <motion.div
+          animate={reduce ? undefined : { y: [0, -8, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-5 -left-6 rounded-lg border border-accent/40 bg-white/95 backdrop-blur px-4 py-2.5 shadow-md"
+        >
+          <p className="text-sm font-black text-brand-deep">تصميم</p>
+          <p className="text-xs font-semibold text-brand">وإخراج طباعي</p>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
@@ -111,16 +120,19 @@ export function Hero({ isAvailable = true }: { isAvailable?: boolean }) {
             </motion.div>
 
             <motion.h1
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 28 }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 26 }}
               animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{
-                duration: 0.6,
-                delay: 0.12,
+                duration: 0.7,
+                delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-6 text-[clamp(32px,5vw,56px)] font-black leading-[1.25] text-ink"
+              className="mt-6 text-[clamp(32px,5vw,56px)] font-black leading-[1.2] text-ink"
             >
-              {dictionary.hero.headline}
+              <span className="block">{dictionary.hero.headline1}</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-l from-accent to-brand">
+                {dictionary.hero.headline2}
+              </span>
             </motion.h1>
 
             <motion.p

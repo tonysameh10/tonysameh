@@ -11,11 +11,14 @@ export function Problem() {
       <Container>
         <SectionHeading title={dictionary.problem.title} />
         <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
-          {dictionary.problem.cards.map((card) => (
+          {dictionary.problem.cards.map((card, i) => (
             <StaggerItem
               key={card.title}
-              className="rounded-lg bg-white border border-line p-7 shadow-sm hover:shadow-md transition-shadow"
+              className="group relative overflow-hidden rounded-lg bg-white border border-line p-7 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
             >
+              <span className="absolute top-5 left-6 text-5xl font-black text-accent-soft/70 transition-colors group-hover:text-accent">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <div className="mb-4">
                 <IconBadge name={card.icon} />
               </div>

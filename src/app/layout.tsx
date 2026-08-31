@@ -39,7 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ar" dir="rtl" className={`${cairo.variable} ${inter.variable}`}>
+    <html
+      lang="ar"
+      dir="rtl"
+      data-scroll-behavior="smooth"
+      className={`${cairo.variable} ${inter.variable}`}
+    >
       <body className="min-h-screen flex flex-col">
         {children}
         <Toaster position="top-center" richColors />

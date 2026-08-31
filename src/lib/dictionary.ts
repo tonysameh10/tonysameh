@@ -49,17 +49,17 @@ export const dictionary = {
     title: "شغلك ممتاز — بس الملزمة مش بتوريه",
     cards: [
       {
-        icon: "🧪",
+        icon: "flask",
         title: "المعادلات مكسورة",
         desc: "H₂O بتطلع H2O، والأرقام السفلية فوق.",
       },
       {
-        icon: "📊",
+        icon: "chart",
         title: "الجدول واقع على صفحتين",
         desc: "الطالب بيقلب الصفحة وبينسى نص المعلومة.",
       },
       {
-        icon: "📑",
+        icon: "files",
         title: "الفهرس بيبوظ كل تعديل",
         desc: "وأول حاجة الطالب بيفتحها هي الفهرس.",
       },
@@ -97,22 +97,22 @@ export const dictionary = {
     title: "ليه أنا؟",
     cards: [
       {
-        icon: "🖨️",
+        icon: "printer",
         title: "المطبعة مش هترفض الملف",
         desc: "CMYK و Bleed 3 مم وخطوط Outlined.",
       },
       {
-        icon: "📐",
+        icon: "ruler",
         title: "InDesign مش Word",
         desc: "الفهرس بيتحدّث لوحده، والجداول متتكسرش.",
       },
       {
-        icon: "📄",
+        icon: "file",
         title: "ابعت ملفك زي ما هو",
         desc: "مش محتاج ترتّبه. ده شغلي أنا.",
       },
       {
-        icon: "⏱️",
+        icon: "timer",
         title: "الميعاد ميعاد",
         desc: "بشتغل مع عدد محدود عشان أقدر ألتزم.",
       },

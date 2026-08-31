@@ -18,6 +18,26 @@ export const fadeUp: Variants = {
   },
 };
 
+// Blur-in reveal — feels expensive, elegant
+export const blurUp: Variants = {
+  hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease },
+  },
+};
+
+// Masked line reveal for headings
+export const lineReveal: Variants = {
+  hidden: { y: "110%" },
+  visible: {
+    y: "0%",
+    transition: { duration: 0.8, ease },
+  },
+};
+
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {

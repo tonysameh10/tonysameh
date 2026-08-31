@@ -6,6 +6,7 @@ import { Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChipInput } from "@/components/admin/ChipInput";
 import { ConfirmModal } from "@/components/admin/ConfirmModal";
+import { IconBadge } from "@/components/ui/icon";
 import type { Service } from "@/lib/admin-data";
 
 interface ServiceEditable {
@@ -40,7 +41,7 @@ export function ServicesManager({ initialServices }: { initialServices: Service[
   const emptyDraft: ServiceEditable = {
     title_ar: "",
     description: "",
-    icon: "📚",
+    icon: "sparkles",
     price_from: "",
     features: [],
     sort_order: services.length,
@@ -124,7 +125,7 @@ export function ServicesManager({ initialServices }: { initialServices: Service[
               className="flex items-center justify-between gap-4 border-b border-line px-5 py-4"
             >
               <div className="flex items-center gap-4">
-                <span className="text-2xl">{svc.icon}</span>
+                <IconBadge name={svc.icon} />
                 <div>
                   <p className="font-bold text-ink">{svc.title_ar}</p>
                   <p className="text-muted text-sm">{svc.description}</p>
@@ -234,12 +235,18 @@ function ServiceRowEditable({
           dir="ltr"
         />
       </div>
-      <input
-        value={draft.icon}
-        onChange={(e) => update({ icon: e.target.value })}
-        className="w-20 rounded-md border border-line px-3 py-2 text-ink focus:border-brand focus:outline-none"
-        placeholder="أيقونة"
-      />
+      <div className="flex items-center gap-3">
+        <IconBadge name={draft.icon} />
+        <input
+          value={draft.icon}
+          onChange={(e) => update({ icon: e.target.value })}
+          className="w-40 rounded-md border border-line px-3 py-2 text-ink focus:border-brand focus:outline-none"
+          placeholder="اسم الأيقونة"
+        />
+        <span className="text-xs text-muted ltr" dir="ltr">
+          booklet · covers · profile · books · flask · chart · files · printer · ruler · file · timer
+        </span>
+      </div>
       <textarea
         value={draft.description}
         onChange={(e) => update({ description: e.target.value })}

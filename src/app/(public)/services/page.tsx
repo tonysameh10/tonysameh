@@ -4,6 +4,8 @@ import { getServices, getPackages } from "@/lib/data";
 import { formatPrice, waLink } from "@/lib/utils";
 import { dictionary } from "@/lib/dictionary";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
+import { IconBadge } from "@/components/ui/icon";
+import { PageHeader } from "@/components/public/PageHeader";
 import { FadeUp } from "@/components/motion/FadeUp";
 
 export const revalidate = 60;
@@ -18,16 +20,11 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <Section className="pt-24 md:pt-28 pb-0">
-        <Container className="text-center mb-0">
-          <h1 className="text-[clamp(32px,5vw,48px)] font-black text-ink">
-            الخدمات والأسعار
-          </h1>
-          <p className="mt-4 text-body text-lg max-w-2xl mx-auto">
-            أربع خدمات أساسية — كل واحدة بتاخد من الفوضى لملف جاهز للمطبعة
-          </p>
-        </Container>
-      </Section>
+      <PageHeader
+        eyebrow="الخدمات"
+        title="الخدمات والأسعار"
+        subtitle="أربع خدمات أساسية — كل واحدة بتاخد من الفوضى لملف جاهز للمطبعة"
+      />
 
       {/* Services breakdown */}
       <Section className="py-16 md:py-20">
@@ -41,7 +38,7 @@ export default async function ServicesPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <span className="text-4xl">{service.icon}</span>
+                    <IconBadge name={service.icon} />
                     <h2 className="text-xl font-extrabold text-ink">
                       {service.title_ar}
                     </h2>

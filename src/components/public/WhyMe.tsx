@@ -2,6 +2,7 @@
 
 import { dictionary } from "@/lib/dictionary";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
+import { IconBadge } from "@/components/ui/icon";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
 export function WhyMe() {
@@ -19,7 +20,9 @@ export function WhyMe() {
                 key={card.title}
                 className="rounded-lg bg-white/5 border border-white/10 p-7"
               >
-                <div className="text-4xl mb-4">{card.icon}</div>
+                <div className="mb-4">
+                  <IconBadge name={card.icon} tone="light" />
+                </div>
                 <h3 className="text-lg font-bold text-white mb-2">{card.title}</h3>
                 <p className="text-white/80">{card.desc}</p>
               </StaggerItem>

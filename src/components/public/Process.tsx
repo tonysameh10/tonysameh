@@ -13,19 +13,21 @@ export function Process() {
           title={dictionary.process.title}
           subtitle={dictionary.process.subtitle}
         />
-        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+        <Stagger className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+          <div
+            aria-hidden
+            className="hidden lg:block absolute top-7 right-0 left-0 h-px bg-gradient-to-l from-brand-soft/0 via-brand-soft/60 to-brand-soft/0"
+          />
           {dictionary.process.steps.map((step) => (
             <StaggerItem
               key={step.num}
-              className="relative rounded-lg bg-white border border-line p-7 shadow-sm"
+              className="relative rounded-lg bg-white border border-line p-7 pt-12 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="absolute top-6 right-7 text-5xl font-black text-accent-soft">
+              <div className="absolute -top-5 right-7 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand text-white font-black text-lg shadow-warm ring-4 ring-surface">
                 {step.num}
               </div>
-              <div className="relative pt-16">
-                <h3 className="text-lg font-bold text-ink">{step.title}</h3>
-                <p className="mt-2 text-body">{step.desc}</p>
-              </div>
+              <h3 className="text-lg font-bold text-ink">{step.title}</h3>
+              <p className="mt-2 text-body">{step.desc}</p>
             </StaggerItem>
           ))}
         </Stagger>

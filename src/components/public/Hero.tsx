@@ -10,6 +10,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { dictionary } from "@/lib/dictionary";
 import { Container } from "@/components/ui/container";
 import { waLink } from "@/lib/utils";
@@ -71,6 +72,7 @@ function TiltCover() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-white/20" />
         </motion.div>
 
         <div className="absolute -bottom-4 right-6 rounded-full bg-white/90 backdrop-blur px-4 py-2 shadow-sm text-sm font-semibold text-ink">
@@ -87,6 +89,7 @@ export function Hero({ isAvailable = true }: { isAvailable?: boolean }) {
   return (
     <section className="relative bg-white overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-full pointer-events-none">
+        <div className="texture-dots absolute inset-0 opacity-[0.35]" style={{ WebkitMaskImage: "radial-gradient(ellipse at bottom right, black 0%, transparent 65%)", maskImage: "radial-gradient(ellipse at bottom right, black 0%, transparent 65%)" }} />
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-accent-soft/40 blur-3xl" />
         <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-surface-2/60 blur-3xl" />
       </div>
@@ -163,15 +166,17 @@ export function Hero({ isAvailable = true }: { isAvailable?: boolean }) {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-8 py-4 text-lg font-semibold text-white shadow-md transition-all hover:bg-brand-deep hover:scale-[1.02] active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2 rounded-md bg-brand px-8 py-4 text-lg font-semibold text-white shadow-md transition-all hover:bg-brand-deep hover:scale-[1.02] active:scale-[0.98]"
               >
                 {dictionary.hero.cta1}
+                <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
               </a>
               <Link
                 href="/work"
-                className="inline-flex items-center justify-center rounded-md border-2 border-brand px-8 py-4 text-lg font-semibold text-brand transition-all hover:bg-brand/5 hover:scale-[1.02] active:scale-[0.98]"
+                className="group inline-flex items-center justify-center rounded-md border-2 border-brand px-8 py-4 text-lg font-semibold text-brand transition-all hover:bg-brand/5 hover:scale-[1.02] active:scale-[0.98]"
               >
                 {dictionary.hero.cta2}
+                <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
               </Link>
             </motion.div>
           </div>

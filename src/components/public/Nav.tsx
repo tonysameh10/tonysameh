@@ -4,10 +4,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useSpring,
+  useReducedMotion,
+} from "framer-motion";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { dictionary } from "@/lib/dictionary";
-import {Container } from "@/components/ui/container";
+import { Container } from "@/components/ui/container";
 import { waLink } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +29,13 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const reduce = useReducedMotion();
+
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -51,9 +64,16 @@ export function Nav() {
           : "bg-transparent"
       )}
     >
+      {/* Scroll progress bar */}
+      <motion.div
+        aria-hidden
+        className="absolute top-0 inset-x-0 h-[3px] origin-right bg-gradient-to-l from-brand via-brand-soft to-accent"
+        style={{ scaleX: progress }}
+      />
+
       <Container className="flex items-center justify-between h-16 md:h-20">
-        <Link href="/" className="flex items-center gap-2" aria-label="Tony Sameh">
-          <span className="relative w-9 h-6">
+        <Link href="/" className="group flex items-center gap-2" aria-label="Tony Sameh">
+          <span className="relative w-9 h-6 transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/images/logo.png"
               alt="Tony Sameh logo"
@@ -68,7 +88,7 @@ export function Nav() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
@@ -76,11 +96,18 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative text-base font-semibold transition-colors hover:text-brand",
+                  "relative px-4 py-2 text-base font-semibold transition-colors hover:text-brand",
                   active ? "text-brand" : "text-body"
                 )}
               >
                 {link.label}
+                {active && !reduce && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-0.5 inset-x-3 h-[2.5px] rounded-full bg-brand"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
               </Link>
             );
           })}
@@ -91,9 +118,9 @@ export function Nav() {
             href={waLink(dictionary.brand.whatsapp, dictionary.whatsapp.general)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-full bg-wa px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
+            className="group inline-flex items-center rounded-full bg-wa px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-[1.03] active:scale-[0.98] shadow-md"
           >
-            <span className="inline-block w-2 h-2 rounded-full bg-white mr-2 animate-pulse" />
+            <MessageCircle size={16} className="mr-2 transition-transform group-hover:-translate-x-0.5 group-hover:scale-110" />
             {dictionary.nav.whatsapp}
           </Link>
         </div>
@@ -172,7 +199,7 @@ export function Nav() {
                   href={waLink(dictionary.brand.whatsapp, dictionary.whatsapp.general)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full rounded-full bg-wa px-5 py-3 text-base font-semibold text-white"
+                  className="flex items-center justify-center w-full rounded-full bg-wa px-5 py-3 text-base font-semibold text-white shadow-md"
                 >
                   {dictionary.nav.whatsapp}
                 </a>

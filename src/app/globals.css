@@ -46,17 +46,49 @@
   --foreground: #241a12;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-cairo), var(--font-inter), system-ui, sans-serif;
   line-height: 1.85;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background-color: var(--color-accent-soft);
-  color: var(--color-brand-deep);
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Refined, accessible focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Slim, brand-tinted scrollbar */
+@media (pointer: fine) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-brand-soft) transparent;
+  }
+  *::-webkit-scrollbar {
+    height: 8px;
+    width: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-brand-soft);
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 /* Hide scrollbar for drawer on mobile */
@@ -66,4 +98,16 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Subtle dot-grid texture used on select sections */
+.texture-dots {
+  background-image: radial-gradient(var(--color-brand-soft) 1px, transparent 1px);
+  background-size: 20px 20px;
 }

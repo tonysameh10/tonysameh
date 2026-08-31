@@ -4,6 +4,7 @@ import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import type { Service } from "@/lib/data";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
+import { IconBadge } from "@/components/ui/icon";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
 export function Services({ services }: { services: Service[] }) {
@@ -23,7 +24,7 @@ export function Services({ services }: { services: Service[] }) {
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <span className="text-4xl">{service.icon}</span>
+                  <IconBadge name={service.icon} />
                   <h3 className="text-lg font-bold text-ink">
                     {service.title_ar}
                   </h3>

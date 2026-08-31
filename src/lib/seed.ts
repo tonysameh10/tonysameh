@@ -44,7 +44,7 @@ export const seedServices: SeedService[] = [
     id: "srv-booklet",
     title_ar: "تنضيد الملازم",
     description: "الملزمة كاملة من ملف Word فوضوي إلى ملف جاهز للمطبعة",
-    icon: "📚",
+    icon: "booklet",
     price_from: 1800,
     features: [
       "معادلات وجداول مضبوطة",
@@ -59,7 +59,7 @@ export const seedServices: SeedService[] = [
     id: "srv-covers",
     title_ar: "أغلفة وسلاسل",
     description: "مش غلاف واحد — هوية بصرية للسلسلة كلها",
-    icon: "📕",
+    icon: "covers",
     price_from: 450,
     features: [
       "اسم سلسلة وشعار",
@@ -74,7 +74,7 @@ export const seedServices: SeedService[] = [
     id: "srv-profile",
     title_ar: "بروفايلات الشركات",
     description: "ملف تقدر تدخل بيه مناقصة وأنت مطمن",
-    icon: "🏢",
+    icon: "profile",
     price_from: 3500,
     features: [
       "كتابة المحتوى (اختياري)",
@@ -89,7 +89,7 @@ export const seedServices: SeedService[] = [
     id: "srv-books",
     title_ar: "إخراج الكتب",
     description: "للمؤلفين ودور النشر والباحثين",
-    icon: "📖",
+    icon: "books",
     price_from: 25,
     features: [
       "فهرس وحواشي أوتوماتيك",

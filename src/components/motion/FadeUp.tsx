@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
-import { fadeUp } from "@/lib/motion";
+import { blurUp } from "@/lib/motion";
 
 interface FadeUpProps {
   children: ReactNode;
@@ -22,11 +22,12 @@ export function FadeUp({
 
   return (
     <Comp
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 22, filter: "blur(6px)" }}
       whileInView={{
         opacity: 1,
         y: 0,
-        transition: { duration: reduce ? 0.15 : 0.6, delay },
+        filter: "blur(0px)",
+        transition: { duration: reduce ? 0.15 : 0.7, delay, ease: [0.22, 1, 0.36, 1] },
       }}
       viewport={{ once: true, margin: "-80px" }}
       className={className}
@@ -64,7 +65,7 @@ interface StaggerItemProps {
 
 export function StaggerItem({ children, className, variants }: StaggerItemProps) {
   return (
-    <motion.div variants={variants ?? fadeUp} className={className}>
+    <motion.div variants={variants ?? blurUp} className={className}>
       {children}
     </motion.div>
   );

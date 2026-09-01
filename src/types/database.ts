@@ -15,7 +15,15 @@ export interface Database {
           slug: string;
           title_ar: string;
           title_en: string | null;
-          category: "cover" | "booklet" | "profile" | "book";
+          category:
+            | "cover"
+            | "booklet"
+            | "profile"
+            | "book"
+            | "catalog"
+            | "identity"
+            | "print"
+            | "digital";
           client: string | null;
           year: number | null;
           summary_ar: string | null;
@@ -95,6 +103,7 @@ export interface Database {
           hero_title_ar: string | null;
           hero_lead_ar: string | null;
           is_available: boolean;
+          show_prices: boolean;
         };
         Insert: Partial<Database["public"]["Tables"]["site_settings"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["site_settings"]["Row"]>;

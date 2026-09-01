@@ -20,7 +20,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { toast } from "sonner";
 import { GripVertical, Star, Trash2, Pencil } from "lucide-react";
-import { categoryLabels } from "@/lib/categories";
+import { categoryLabels, projectCategories } from "@/lib/categories";
 import { formatDate } from "@/lib/utils";
 import { ConfirmModal } from "@/components/admin/ConfirmModal";
 import type { Project } from "@/lib/admin-data";
@@ -223,7 +223,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
     }
   }
 
-  const categories = ["all", "cover", "booklet", "profile", "book"];
+  const categories = ["all", ...projectCategories];
 
   return (
     <div>

@@ -20,7 +20,16 @@ export type ContactForm = z.infer<typeof contactSchema>;
 export const projectSchema = z.object({
   title_ar: z.string().min(2, "اكتب اسم المشروع"),
   slug: z.string().min(2, "اكتب slug"),
-  category: z.enum(["cover", "booklet", "profile", "book"]),
+  category: z.enum([
+    "cover",
+    "booklet",
+    "profile",
+    "book",
+    "catalog",
+    "identity",
+    "print",
+    "digital",
+  ]),
   client: z.string().optional(),
   year: z.number().int().min(2000).optional(),
   summary_ar: z.string().optional(),

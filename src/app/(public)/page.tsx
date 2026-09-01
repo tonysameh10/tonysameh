@@ -33,9 +33,9 @@ export default async function HomePage() {
       <Marquee items={dictionary.marquee.words} />
       <Stats />
       <Problem />
-      <Services services={services} />
+      <Services services={services} showPrices={settings.show_prices} />
       <FeaturedWork projects={featured} />
-      <Packages packages={packages} />
+      <Packages packages={packages} showPrices={settings.show_prices} />
       <Process />
       <WhyMe />
       <FAQ />

@@ -173,5 +173,6 @@ export async function getSettings(): Promise<SiteSettings> {
     hero_title_ar: null,
     hero_lead_ar: null,
     is_available: true,
+    show_prices: false,
   };
 }

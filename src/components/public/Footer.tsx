@@ -35,6 +35,9 @@ export function Footer() {
               <Link href="/" className="text-body hover:text-brand transition-colors">
                 {dictionary.nav.home}
               </Link>
+              <Link href="/about" className="text-body hover:text-brand transition-colors">
+                {dictionary.nav.about}
+              </Link>
               <Link href="/work" className="text-body hover:text-brand transition-colors">
                 {dictionary.nav.work}
               </Link>

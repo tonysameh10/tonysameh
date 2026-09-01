@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/", label: dictionary.nav.home },
+  { href: "/about", label: dictionary.nav.about },
   { href: "/work", label: dictionary.nav.work },
   { href: "/services", label: dictionary.nav.services },
   { href: "/contact", label: dictionary.nav.contact },

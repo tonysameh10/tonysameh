@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { slugify } from "@/lib/utils";
-import { categoryOptions } from "@/lib/categories";
+import { categoryOptions, type ProjectCategory } from "@/lib/categories";
 import { Input, Select, Textarea, Field } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ImageUploader } from "@/components/admin/ImageUploader";
@@ -17,7 +17,7 @@ type FormValues = {
   title_ar: string;
   title_en: string;
   slug: string;
-  category: "cover" | "booklet" | "profile" | "book";
+  category: ProjectCategory;
   client: string;
   year: string;
   summary_ar: string;

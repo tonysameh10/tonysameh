@@ -12,11 +12,14 @@ import { Input, Textarea, Select, Field } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const serviceOptions = [
-  { value: "booklet", label: "تنضيد ملزمة" },
-  { value: "cover", label: "غلاف أو سلسلة" },
+  { value: "identity", label: "هوية بصرية / لوجو" },
   { value: "profile", label: "بروفايل شركة" },
+  { value: "catalog", label: "كتالوج" },
   { value: "book", label: "إخراج كتاب" },
-  { value: "other", label: "خدمة تانية" },
+  { value: "cover", label: "غلاف أو سلسلة" },
+  { value: "print", label: "مطبوعات دعائية" },
+  { value: "digital", label: "تصميم رقمي" },
+  { value: "other", label: "حاجة تانية" },
 ];
 
 export function ContactForm() {
@@ -28,7 +31,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactForm>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { service_type: "booklet" },
+    defaultValues: { service_type: "identity" },
   });
 
   async function onSubmit(formData: ContactForm) {

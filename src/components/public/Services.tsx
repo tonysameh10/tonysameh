@@ -1,20 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { formatPrice } from "@/lib/utils";
 import type { Service } from "@/lib/data";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { IconBadge } from "@/components/ui/icon";
+import { PriceTag } from "@/components/ui/PriceTag";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
-export function Services({ services }: { services: Service[] }) {
+export function Services({
+  services,
+  showPrices,
+}: {
+  services: Service[];
+  showPrices: boolean;
+}) {
   return (
     <Section>
       <Container>
         <SectionHeading
           eyebrow="الخدمات"
           title="إيه اللي بعمله؟"
-          subtitle="أربع خدمات أساسية — كل واحدة بتاخد من الفوضى لملف جاهز للمطبعة"
+          subtitle="مجالات تصميم واسعة — كل واحدة بتاخد من الفكرة لملف جاهز للمطبعة"
         />
         <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
           {services.map((service) => (
@@ -30,9 +36,12 @@ export function Services({ services }: { services: Service[] }) {
                   </h3>
                 </div>
                 {service.price_from !== null && service.price_from > 100 && (
-                  <span className="whitespace-nowrap text-sm font-bold text-brand">
-                    من {formatPrice(service.price_from)} ج.م
-                  </span>
+                  <PriceTag
+                    price={service.price_from}
+                    show={showPrices}
+                    message={`مرحبًا، عايز أعرف سعر «${service.title_ar}».`}
+                    size="sm"
+                  />
                 )}
               </div>
               {service.description && (

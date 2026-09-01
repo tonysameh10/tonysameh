@@ -21,6 +21,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings | null }) {
     hero_title_ar: settings?.hero_title_ar ?? "",
     hero_lead_ar: settings?.hero_lead_ar ?? "",
     is_available: settings?.is_available ?? true,
+    show_prices: settings?.show_prices ?? false,
   });
 
   function update(field: keyof typeof form, value: string | boolean) {
@@ -44,6 +45,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings | null }) {
           hero_title_ar: form.hero_title_ar || null,
           hero_lead_ar: form.hero_lead_ar || null,
           is_available: form.is_available,
+          show_prices: form.show_prices,
         },
         { onConflict: "id" }
       );
@@ -125,6 +127,28 @@ export function SettingsForm({ settings }: { settings: SiteSettings | null }) {
           <span className="text-sm font-semibold text-ink">
             متاح لاستقبال طلبات هذا الشهر
           </span>
+        </label>
+      </section>
+
+      <section className="rounded-lg bg-white border border-line p-6 space-y-4">
+        <h2 className="text-lg font-bold text-ink">الأسعار</h2>
+        <p className="text-sm text-body">
+          الأسعار الحالية مخفية عن العملاء. فعّل المفتاح ده لما تحب إظهارها على الموقع —
+          ولو مقفل، العملاء هيلاقوا «اسأل عن السعر» ويوصلوك على واتساب.
+        </p>
+        <label className="flex items-center justify-between gap-4 cursor-pointer rounded-lg bg-surface p-4">
+          <span className="text-sm font-semibold text-ink">
+            إظهار الأسعار للعملاء
+            <span className="block text-xs font-normal text-muted mt-1">
+              مقفلة افتراضيًا — افعلها من هنا بس
+            </span>
+          </span>
+          <input
+            type="checkbox"
+            checked={form.show_prices}
+            onChange={(e) => update("show_prices", e.target.checked)}
+            className="h-5 w-5 accent-brand shrink-0"
+          />
         </label>
       </section>
 

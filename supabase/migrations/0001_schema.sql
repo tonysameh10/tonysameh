@@ -15,7 +15,7 @@ create table if not exists public.projects (
   slug          text unique not null,
   title_ar      text not null,
   title_en      text,
-  category      text not null check (category in ('cover','booklet','profile','book')),
+  category      text not null check (category in ('cover','booklet','profile','book','catalog','identity','print','digital')),
   client        text,
   year          integer,
   summary_ar    text,
@@ -31,6 +31,8 @@ create table if not exists public.projects (
 );
 create index if not exists projects_category_idx on public.projects (category);
 create index if not exists projects_published_sort_idx on public.projects (published, sort_order);
+create unique index if not exists services_title_ar_key on public.services (title_ar);
+create unique index if not exists packages_name_ar_key on public.packages (name_ar);
 
 -- ============================================================
 -- SERVICES
@@ -91,6 +93,7 @@ create table if not exists public.site_settings (
   hero_title_ar  text,
   hero_lead_ar   text,
   is_available   boolean default true,
+  show_prices    boolean default false,
   constraint single_row check (id = 1)
 );
 

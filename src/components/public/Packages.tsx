@@ -5,15 +5,22 @@ import { formatPrice, waLink } from "@/lib/utils";
 import { dictionary } from "@/lib/dictionary";
 import type { Package } from "@/lib/data";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
+import { PriceTag } from "@/components/ui/PriceTag";
 import { Stagger, StaggerItem } from "@/components/motion/FadeUp";
 
-export function Packages({ packages }: { packages: Package[] }) {
+export function Packages({
+  packages,
+  showPrices,
+}: {
+  packages: Package[];
+  showPrices: boolean;
+}) {
   return (
     <Section>
       <Container>
         <SectionHeading
           eyebrow="الباقات"
-          title="اسعار واضحة — من غير مفاجآت"
+          title="باقات جاهزة — من غير تعقيد"
           subtitle="اختار الباقة اللي تناسب حجم شغلك"
         />
         <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7 items-stretch">
@@ -39,17 +46,28 @@ export function Packages({ packages }: { packages: Package[] }) {
               >
                 {pkg.description}
               </p>
-              <div className="mt-6 flex items-end gap-3">
-                <span className="text-[clamp(28px,3vw,36px)] font-black" dir="ltr">
-                  {formatPrice(pkg.price)}
-                </span>
-                <span className={pkg.is_featured ? "text-white/80" : "text-muted mb-1"}>
-                  ج.م
-                </span>
-                {pkg.old_price && (
-                  <span className="text-sm line-through mb-1 opacity-60" dir="ltr">
-                    {formatPrice(pkg.old_price)}
-                  </span>
+              <div className="mt-6">
+                {showPrices ? (
+                  <div className="flex items-end gap-3">
+                    <span className="text-[clamp(28px,3vw,36px)] font-black" dir="ltr">
+                      {formatPrice(pkg.price)}
+                    </span>
+                    <span className={pkg.is_featured ? "text-white/80" : "text-muted mb-1"}>
+                      ج.م
+                    </span>
+                    {pkg.old_price && (
+                      <span className="text-sm line-through mb-1 opacity-60" dir="ltr">
+                        {formatPrice(pkg.old_price)}
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <PriceTag
+                    price={pkg.price}
+                    show={false}
+                    message={`مرحبًا، عايز أعرف سعر باقة «${pkg.name_ar}».`}
+                    tone={pkg.is_featured ? "light" : "default"}
+                  />
                 )}
               </div>
               <ul className="mt-6 space-y-3 flex-1">

@@ -44,11 +44,13 @@ on conflict (name_ar) do nothing;
 -- ============================================================
 -- SITE SETTINGS (single row, id = 1) — include show_prices
 -- ============================================================
-insert into public.site_settings (id, whatsapp, email, hero_title_ar, hero_lead_ar, is_available, show_prices)
+insert into public.site_settings (id, whatsapp, email, facebook_url, behance_url, hero_title_ar, hero_lead_ar, is_available, show_prices)
 values (
   1,
   '+201016042072',
-  null,
+  'tony1sameh@gmail.com',
+  'https://www.facebook.com/profile.php?id=61594105014733',
+  'https://www.behance.net/tonysameh10',
   'هويتك البصرية شكلها أقل من مستواك.',
   'بصمّم وأُخرج الهوية البصرية والبروفايلات والكتالوجات والمطبوعات — بحيث الملف يطلع جاهز للمطبعة من أول مرة.',
   true,
@@ -57,6 +59,8 @@ values (
 on conflict (id) do update set
   whatsapp = excluded.whatsapp,
   email = excluded.email,
+  facebook_url = excluded.facebook_url,
+  behance_url = excluded.behance_url,
   hero_title_ar = excluded.hero_title_ar,
   hero_lead_ar = excluded.hero_lead_ar,
   is_available = excluded.is_available,

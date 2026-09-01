@@ -6,8 +6,12 @@ export const dictionary = {
     tagline: "الوضوح أجمل من الزحمة",
     taglineEn: "Clarity over clutter",
     signature: "نظام قبل جمال",
-    location: "بنها — القليوبية، مصر",
+    location: "القاهرة، مصر",
     whatsapp: "+201016042072",
+    whatsappDisplay: "01016042072",
+    email: "tony1sameh@gmail.com",
+    behance: "https://www.behance.net/tonysameh10",
+    facebook: "https://www.facebook.com/profile.php?id=61594105014733",
     hours: "السبت – الخميس · 10 ص – 8 م",
   },
 

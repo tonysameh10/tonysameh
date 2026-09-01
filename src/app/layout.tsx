@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { ServiceWorkerRegister } from "@/components/providers/ServiceWorkerRegister";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -24,13 +25,34 @@ export const metadata: Metadata = {
   },
   description:
     "تصميم وإخراج الملازم والأغلفة والمطبوعات — بحيث الملف تقبله المطبعة من أول مرة.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+  applicationName: "Tony Sameh",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icons/icon-180.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Tony Sameh",
+    statusBarStyle: "default",
+  },
   openGraph: {
     title: "Tony Sameh — تصميم وإخراج المطبوعات",
     description:
       "تصميم وإخراج الملازم والأغلفة والمطبوعات — بحيث الملف تقبله المطبعة من أول مرة.",
     type: "website",
     locale: "ar_EG",
+    images: ["/images/tony.png"],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#8d5a2b",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -48,6 +70,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         {children}
         <Toaster position="top-center" richColors />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );

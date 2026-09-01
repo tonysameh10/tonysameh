@@ -165,10 +165,10 @@ export async function getSettings(): Promise<SiteSettings> {
   return {
     id: 1,
     whatsapp: "+201016042072",
-    email: null,
-    facebook_url: null,
+    email: "tony1sameh@gmail.com",
+    facebook_url: "https://www.facebook.com/profile.php?id=61594105014733",
     instagram_url: null,
-    behance_url: null,
+    behance_url: "https://www.behance.net/tonysameh10",
     pinterest_url: null,
     hero_title_ar: null,
     hero_lead_ar: null,

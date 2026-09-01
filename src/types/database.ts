@@ -108,6 +108,56 @@ export interface Database {
         Insert: Partial<Database["public"]["Tables"]["site_settings"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["site_settings"]["Row"]>;
       };
+      clients: {
+        Row: {
+          id: string;
+          name: string;
+          company: string | null;
+          phone: string | null;
+          email: string | null;
+          location: string | null;
+          status: "active" | "won" | "prospect" | "archived";
+          tags: string[];
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["clients"]["Row"]> & {
+          name: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["clients"]["Row"]>;
+      };
+      client_notes: {
+        Row: {
+          id: string;
+          client_id: string;
+          body: string;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["client_notes"]["Row"]> & {
+          client_id: string;
+          body: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["client_notes"]["Row"]>;
+      };
+      payments: {
+        Row: {
+          id: string;
+          client_id: string | null;
+          project_id: string | null;
+          amount: number;
+          currency: string;
+          date: string;
+          status: "paid" | "pending" | "partial";
+          method: string | null;
+          note: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["payments"]["Row"]> & {
+          amount: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["payments"]["Row"]>;
+      };
     };
     Views: { [_ in never]: never };
     Functions: { [_ in never]: never };

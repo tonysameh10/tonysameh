@@ -1,9 +1,19 @@
 import Link from "next/link";
-import { Plus, Users, FolderKanban, MessagesSquare, TrendingUp } from "lucide-react";
+import {
+  Plus,
+  Users,
+  FolderKanban,
+  MessagesSquare,
+  TrendingUp,
+  Wallet,
+  UserRound,
+} from "lucide-react";
 import {
   getAdminProjects,
   getAdminInquiries,
   getAdminSettings,
+  getAdminClients,
+  getAdminPayments,
 } from "@/lib/admin-data";
 import { formatDate } from "@/lib/utils";
 import { AdminCard, AdminPageHeader } from "@/components/admin/ui";
@@ -12,16 +22,18 @@ import { AvailabilityToggle } from "@/components/admin/AvailabilityToggle";
 import type { Inquiry } from "@/lib/admin-data";
 
 async function getData() {
-  const [projects, inquiries, settings] = await Promise.all([
+  const [projects, inquiries, settings, clients, payments] = await Promise.all([
     getAdminProjects().catch(() => []),
     getAdminInquiries().catch(() => []),
     getAdminSettings().catch(() => null),
+    getAdminClients().catch(() => []),
+    getAdminPayments().catch(() => []),
   ]);
-  return { projects, inquiries, settings };
+  return { projects, inquiries, settings, clients, payments };
 }
 
 export default async function AdminOverviewPage() {
-  const { projects, inquiries, settings } = await getData();
+  const { projects, inquiries, settings, clients, payments } = await getData();
 
   const now = new Date();
   const thisMonth = inquiries.filter(
@@ -33,16 +45,30 @@ export default async function AdminOverviewPage() {
       ? Math.round((inquiries.filter((q) => q.status === "won").length / inquiries.length) * 100)
       : 0;
 
+  const totalRevenue = payments
+    .filter((p) => p.status === "paid")
+    .reduce((s, p) => s + Number(p.amount), 0);
+  const pendingRevenue = payments
+    .filter((p) => p.status === "pending")
+    .reduce((s, p) => s + Number(p.amount), 0);
+
   const stats = [
     {
       label: "إجمالي المشاريع",
       value: projects.length,
       icon: FolderKanban,
     },
+    { label: "العملاء", value: clients.length, icon: UserRound },
+    { label: "التحصيلات", value: `${Number(totalRevenue).toLocaleString("ar-EG")} ج.م`, icon: Wallet },
     { label: "استفسارات جديدة", value: newInquiries.length, icon: MessagesSquare },
     { label: "استفسارات هذا الشهر", value: thisMonth.length, icon: Users },
     { label: "نسبة التحويل", value: `${conversion}%`, icon: TrendingUp },
   ];
+
+  const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  const revenueThisMonth = payments
+    .filter((p) => p.status === "paid" && (p.date ?? "").startsWith(monthKey))
+    .reduce((s, p) => s + Number(p.amount), 0);
 
   return (
     <div>
@@ -73,7 +99,7 @@ export default async function AdminOverviewPage() {
       )}
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {stats.map((stat) => (
           <AdminCard key={stat.label}>
             <div className="flex items-center gap-3">
@@ -81,15 +107,48 @@ export default async function AdminOverviewPage() {
                 <stat.icon size={20} />
               </div>
               <div>
-                <p className="text-2xl font-black text-ink" dir="ltr">
+                <p className="text-xl font-black text-ink" dir="ltr">
                   {stat.value}
                 </p>
-                <p className="text-sm text-muted">{stat.label}</p>
+                <p className="text-xs text-muted">{stat.label}</p>
               </div>
             </div>
           </AdminCard>
         ))}
       </div>
+
+      {/* Revenue snapshot */}
+      {(totalRevenue > 0 || pendingRevenue > 0 || revenueThisMonth > 0) && (
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <AdminCard className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted">إجمالي المتحصلات</p>
+              <p className="text-xl font-black text-success" dir="ltr">
+                {Number(totalRevenue).toLocaleString("ar-EG")} ج.م
+              </p>
+            </div>
+            <Wallet size={22} className="text-success" />
+          </AdminCard>
+          <AdminCard className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted">إيرادات هذا الشهر</p>
+              <p className="text-xl font-black text-brand" dir="ltr">
+                {Number(revenueThisMonth).toLocaleString("ar-EG")} ج.م
+              </p>
+            </div>
+            <TrendingUp size={22} className="text-brand" />
+          </AdminCard>
+          <AdminCard className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted">مستحق (متأخر)</p>
+              <p className="text-xl font-black text-amber-600" dir="ltr">
+                {Number(pendingRevenue).toLocaleString("ar-EG")} ج.م
+              </p>
+            </div>
+            <Users size={22} className="text-amber-600" />
+          </AdminCard>
+        </div>
+      )}
 
       {/* Recent inquiries */}
       <AdminCard className="mt-6">
